@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { useBooksContext } from "../contexts/BooksContext";
 
 const Container = styled.div`
   display: column;
@@ -21,13 +22,13 @@ const Row = styled.div`
   }
 `;
 
-const TitleColumn = styled.div`
-  flex: 10;
-  margin-right: 20px;
-  margin-left: -50px;
-  /* padding-right: 24px; */
-  width: 55px;
-`;
+// const TitleColumn = styled.div`
+//   flex: 10;
+//   margin-right: 20px;
+//   margin-left: -50px;
+//   /* padding-right: 24px; */
+//   width: 55px;
+// `;
 
 const Column = styled.div`
   flex: 1;
@@ -37,24 +38,20 @@ const Column = styled.div`
 `;
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default () => (
-  <Container>
-    <Row style={{ background: "white", flex: 0 }}>
-        <Column>The 48 Laws of Power</Column>
-        <Column>1</Column>
-        <Column>457</Column>
-        <Column>⭐⭐⭐</Column>
-        <Column>No</Column>
-        <Column>Marília</Column>
-    </Row>
-    <Row style={{ background: "white", flex: 0 }}>
-        <Column>Perfume: The history of a Murderer</Column>
-        <Column>2</Column>
-        <Column>216</Column>
-        <Column>⭐⭐</Column>
-        <Column>Yes</Column>
-        <Column>Laura</Column>
-    </Row>
-  </Container>
-
-);
+export default () => {
+  const { books } = useBooksContext()
+  return (
+    <Container>
+      {books.map(book => (
+        <Row key={book.id} style={{ background: "white", flex: 0 }}>
+          <Column>{book.name}</Column>
+          <Column>{book.fortnight}</Column>
+          <Column>{book.pages}</Column>
+          <Column>{'⭐'.repeat(book.stars)}</Column>
+          <Column>{book.concluded}</Column>
+          <Column>{book.proposedBy}</Column>
+        </Row>
+      ))}
+    </Container>
+  )
+};
