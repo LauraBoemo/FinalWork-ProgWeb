@@ -1,15 +1,27 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import styled from "styled-components";
 import Facts from "./Components/Facts";
 import Faq from "./Components/Faq";
 import Members from "./Components/Members";
 import Review from "./Components/Revew";
+import SingleReview from "./Components/SingleRevew";
+import AddBook from "./Components/AddBook";
 import AddButton from "./Components/AddButton"
 import IconBook from "./Assets/book.png";
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const Input = styled.input`
+  font-family: "Roboto Condensed";
+  border: 0;
+  outline: 0;
+  background: transparent;
+  color: white;
+  font-size: 1em;
+  border-bottom: 1px solid white;
 `;
 
 const AppHeader = styled.div`
@@ -47,13 +59,14 @@ const Title = styled.div`
   font-size: 3em;
 `;
 
+
 const Button = styled.div`
   cursor: pointer;
   font-weight: bold;
   padding: 10px 40px;
   border: 1px solid black;
   font-family: "Roboto Condensed";
-  color: black;
+  color: grey;
   &:hover {
     background: black;
     color: white;
@@ -80,17 +93,163 @@ const Icons = styled.div`
   cursor: pointer;
 	text-align: right;
 	width: 600px;
-  margin-bottom: -20px;
-  margin-top: -40px;
+  margin-bottom: -80px;
+  margin-top: -48px;
+`;
+
+const Counter = styled.div`
+  opacity: 0.5;
+  font-family: "Roboto Condensed";
+  margin-top: -15px;
+`;
+
+const LittleText = styled.div`
+  opacity: 0.4;
+  font-family: "Roboto Condensed";
+  margin-top: -18px;
+  font-size: 1em;
+  margin-bottom: 15px;
+`;
+
+const TheEnd = styled.div`
+  background-color: black;
+  color: white;
+  padding: 10px;
+  max-width: 880px;
+  a {
+    color: white;
+  }
+`;
+
+const SectionTitle = styled.h2`
+	font-family: 'Roboto Condensed';
+	border-bottom: 1px solid #333;
 `;
 
 const IconBookButton = () => (
   <img
-    style={{ width: 24, height: 24, marginTop: 15 }}
+    style={{ width: 24, height: 24, marginTop: 15}}
     src={IconBook}
     alt="AddNewBook"
   /> 
 );
+
+// const SimpleForm = () => {
+//   const [value, setValue] = useState("")
+//   const changeName = () => {
+//      setValue("some value changed")
+//   }
+//   return (
+//     <>
+//     {value.length > 0 && <div>{value}</div>}
+//     <button onClick={changeName}>Change Name</button>
+//     </>
+//   )
+// } 
+
+class SimpleForm extends Component {
+ 
+  constructor() {
+    super();
+    this.state = {
+    };
+    this.onInputchange = this.onInputchange.bind(this);
+    this.onSubmitForm = this.onSubmitForm.bind(this);
+  }
+
+  onInputchange(event) {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  onSubmitForm() {
+      console.log(this.state)
+  }
+  
+  render() {
+    const { items } = this.state;
+    
+    return (
+      <TheEnd>
+        <SectionTitle>Form: Add new book</SectionTitle>
+        <center>
+        <LittleText>Yeah, secret button! ✨</LittleText>
+        <div>
+          <label>
+            <Input 
+              placeholder="Book Name"
+              name="BookName"
+              type="text"
+              value={this.state.bookname}
+              onChange={this.onInputchange}
+              />
+          </label>
+        </div>
+        <div>
+          <label>
+            <Input
+              placeholder="Fortnight"
+              name="Fortnight"
+              type="number"
+              value={this.state.fortnight}
+              onChange={this.onInputchange}
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            <Input
+              placeholder="Total Pages"
+              name="TotalPages"
+              type="number"
+              value={this.state.number}
+              onChange={this.onInputchange}
+              />
+          </label>
+        </div>
+        <div>
+          <label>
+            <Input
+              placeholder="Stars"
+              name="Stars"
+              type="number"
+              value={this.state.stars}
+              onChange={this.onInputchange}
+              />
+          </label>
+        </div>
+        <div>
+          <label>
+            <Input
+              placeholder="Concluded"
+              name="Concluded"
+              type="text"
+              value={this.state.concluded}
+              onChange={this.onInputchange}
+              />
+          </label>
+        </div>
+        <div>
+          <label>
+            <Input
+              placeholder="Proposed By"
+              name="ProposedBy"
+              type="text"
+              value={this.state.proposedby}
+              onChange={this.onInputchange}
+              />
+          </label>
+        </div>
+        <div>
+            <div style={{ height: 10 }} />
+            <Button onClick={this.onSubmitForm}>Submit</Button>
+        </div>
+        </center>
+      </TheEnd>
+    );
+  }
+}
 
 class ButtonAddButton extends Component {
   state = {
@@ -110,7 +269,7 @@ class ButtonAddButton extends Component {
             <IconBookButton />
             </Icons>
 	      </Local>
-        {this.state.add ? <AddButton /> : null}
+        {this.state.add ? <SimpleForm  /> : null}
       </>
     );
   }
@@ -153,12 +312,14 @@ class HeaderButtons extends Component {
     );
   }
 }
+
 class App extends Component {
   render() {
     return (
       <Container>
         <AppHeader>
           <Title>OUR FORTNIGHTLY READINGS</Title>
+          <Counter>MADE WITH 💜 BY LAURA BOEMO - 04/2021</Counter>
           <ButtonAddButton />
           <div style={{ height: 20 }} />
           <HeaderButtons />
@@ -166,6 +327,7 @@ class App extends Component {
         </AppHeader>
         <GeneralHeader>
           <Facts />
+          <SingleReview />
           <Review />
         </GeneralHeader>
       </Container>

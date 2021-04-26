@@ -3,19 +3,20 @@ import styled from "styled-components";
 
 
 const Line = styled.div`
-  padding-left: 45px;
   flex-direction: row;
   display: flex;	
-  text-align: left;
+  text-align: center;
 	max-width: 900px;
-	margin-bottom: 9px;
+	margin-bottom: 5px;
   border-top: 1px solid black;
   border-bottom: 1px solid black;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  /* padding-right: 10px;
+  padding-left: 60px; */
   @media screen and (max-width: 800px) {
     flex-direction: column;
-    padding-left: 30px;
+    /* padding-left: 30px; */
   }
 `;
 
@@ -29,15 +30,21 @@ const Fact = styled.div`
 `;
 
 const Title2 = styled.div`
+  text-align: center;
   font-size: 14px;
   font-weight: bold;
-  margin-right: 15px;
+  margin-right: 20px;
+  margin-left: 20px;
 `;
 
 const Num = styled.div`
+  text-align: center;
   font-size: 20px;
   font-weight: bold;
   font-family: "Roboto Condensed";
+  color: grey;
+  margin-right: 20px;
+  margin-left: 20px;
   @media screen and (max-width: 800px) {
     font-size: 14px;
     &:before {
@@ -47,9 +54,11 @@ const Num = styled.div`
 `;
 
 const NameBook = styled.div`
+  text-align: center;
   font-size: 20px;
   font-weight: bold;
   font-family: "Roboto Condensed";
+  color: grey;
   @media screen and (max-width: 800px) {
     font-size: 14px;
     &:before {
@@ -63,19 +72,19 @@ export default () => (
   <Line>
     <Fact>
       <Title2>Fortnight number</Title2>
-      <Num></Num>
+      <Num>3</Num>
     </Fact>
     <Fact>
       <Title2>Current book</Title2>
-      <NameBook></NameBook>
+      <NameBook>The 48 Laws of Power</NameBook>
     </Fact>
     <Fact>
       <Title2>Completed books</Title2>
-      <Num></Num>
+      <Num>1</Num>
     </Fact>
     <Fact>
       <Title2>Total Pages read</Title2>
-      <Num></Num>
+      <Num>216</Num>
     </Fact>
   </Line>
 );

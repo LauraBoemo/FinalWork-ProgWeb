@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import Greeting from "../App";
 
 const Container = styled.div`
   display: column;
@@ -39,6 +40,7 @@ const Column = styled.div`
 // eslint-disable-next-line import/no-anonymous-default-export
 export default () => (
   <Container>
+    <Greeting/>
     <Row style={{ background: "white", flex: 0 }}>
         <Column>The 48 Laws of Power</Column>
         <Column>1</Column>
