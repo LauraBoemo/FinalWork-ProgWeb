@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { useBooksContext } from "../contexts/BooksContext";
 
 
 const Line = styled.div`
@@ -68,23 +69,45 @@ const NameBook = styled.div`
 `;
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default () => (
-  <Line>
-    <Fact>
-      <Title2>Fortnight number</Title2>
-      <Num>3</Num>
-    </Fact>
-    <Fact>
-      <Title2>Current book</Title2>
-      <NameBook>The 48 Laws of Power</NameBook>
-    </Fact>
-    <Fact>
-      <Title2>Completed books</Title2>
-      <Num>1</Num>
-    </Fact>
-    <Fact>
-      <Title2>Total Pages read</Title2>
-      <Num>216</Num>
-    </Fact>
-  </Line>
-);
+export default function Facts() {
+  const { books } = useBooksContext()
+  const [facts, setFacts] = useState({
+    fortnight: 0,
+    noCompleted: 0,
+    totalPages: 0
+  })
+
+
+  useEffect(() => {
+    const readBooks = books.filter(book => book.concluded === 'Yes').reduce((sum, book) => {
+      return {
+        fortnight: sum.fortnight + book.fortnight,
+        noCompleted: sum.noCompleted + 1,
+        totalPages: sum.totalPages + book.pages
+      }
+    }, facts)
+    setFacts(readBooks)
+  }, [books])
+
+  return (
+    <Line>
+      <Fact>
+        <Title2>Fortnight number</Title2>
+        <Num>{facts.fortnight}</Num>
+      </Fact>
+      <Fact>
+        <Title2>Current book</Title2>
+        <NameBook>The 48 Laws of Power</NameBook>
+      </Fact>
+      <Fact>
+        <Title2>Completed books</Title2>
+        <Num>{facts.noCompleted}</Num>
+      </Fact>
+      <Fact>
+        <Title2>Total Pages read</Title2>
+        <Num>{facts.totalPages}</Num>
+      </Fact>
+    </Line>
+
+  );
+}
